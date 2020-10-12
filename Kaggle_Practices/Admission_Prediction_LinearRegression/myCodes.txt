@@ -44,6 +44,7 @@ print ("XY_norm.jpg")
 
 
 
+% fminunc Features one by one :
 
 initial_theta = zeros(2, 1);
 options = optimset('GradObj', 'on', 'MaxIter', 400);
@@ -68,7 +69,35 @@ PlotLinearFit(X_norm(:,[2:end]),y,resultTheta);
 print ("XY_norm_LinearFit.jpg")
 
 
-%Preciction
+%Preciction just by one Feature
 % 2 is mode for TOEFL
 % 80 is TOEFL score
 Predict(resultTheta , mu , sigma , 2 , 80);
+
+
+
+% fminunc with all Features :
+
+
+
+% normalize all Features
+X_norm = (X-mu)./sigma;
+
+% size(A,1) -> number of rows
+% size(A,2) -> number of columns
+n = size(X_norm,2);
+
+% Fix ones in first column
+X_norm(:,[1]) = ones(m,1);
+
+initial_theta = zeros(n, 1);
+options = optimset('GradObj', 'on', 'MaxIter', 400);
+[theta, cost , exitFlag] = fminunc(@(t)(costFunction(t, X_norm, y)), initial_theta, options);
+
+
+% Preciction by all Features
+xtest = [1,300,100,1,1,1,6,0]
+xtest = (xtest - mu)./sigma
+xtest(1) = 1
+xtest*theta
+
