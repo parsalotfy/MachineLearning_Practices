@@ -1,0 +1,61 @@
+>> pwd
+ans = C:\Users\Parsa
+>> clear
+
+% load data
+>> cd Desktop/machine-learning-ex/ex1/kc_house_data/
+>> data=csvread('kc_house_data.csv');
+
+% delete first row of data
+>> data(1,:)=[];
+
+% add ones column for x_0
+>> x(:,1)=ones(21613,1);
+
+% fetch design matrix to normalize
+>> xtemp=data(:,6);
+>> [xnorm,mu,sigma]=featureNormalize(xtemp);
+
+% finish design matrix (normalized)
+>> x(:,2)=xnorm;
+
+% y matrix
+>> y=data(:,3);
+
+% initialize theta
+>> theta=[0;0];
+theta =
+
+   0
+   0
+
+% initialize alpha
+>> alpha=0.01;
+alpha =  0.010000
+
+% initialize number of iterations
+>> numiters=1000
+numiters =  1000
+
+
+>> plotData(x(:,2),y)
+>> hold on
+
+% run Gradient Descent
+>> [theta,Jhistory,thetahistory]=gradientDescentMulti(x,y,theta,alpha,numiters);
+
+>> theta
+theta =
+
+   540182.15879
+   257904.34820
+
+
+>> y1=theta(1)+x1*theta(2)
+y1 =
+
+
+>> plotData(x1,y1)
+>> plotData(x(:,2),y)
+>> hold on
+>> plot(x1,y1,'g')
