@@ -10,7 +10,10 @@ y = data(:,8);
 # add ones columns to the first
 X = [ones(m,1),X];
 
-
+% => X columns are :
+% __________________________________________________________
+% | Ones | GRE | TOEFL | UniRating | SOP | LOR | CGPA | RE |  
+% ¯¯¯1¯¯¯¯¯¯2¯¯¯¯¯¯3¯¯¯¯¯¯¯¯¯4¯¯¯¯¯¯¯¯5¯¯¯¯¯6¯¯¯¯¯7¯¯¯¯¯¯8¯¯
 
 % Ploting without Feature Scaling
 PlotNoNorm(X(:,[2:end]),y);
@@ -78,8 +81,6 @@ Predict(resultTheta , mu , sigma , 2 , 80);
 
 % fminunc with all Features :
 
-
-
 % normalize all Features
 X_norm = (X-mu)./sigma;
 
@@ -94,6 +95,18 @@ initial_theta = zeros(n, 1);
 options = optimset('GradObj', 'on', 'MaxIter', 400);
 [theta, cost , exitFlag] = fminunc(@(t)(costFunction(t, X_norm, y)), initial_theta, options);
 
+% Result is (Descending) :
+
+% 0.7217 for theta 0
+% 0.0716 for CGPA
+% 0.0209 for GRE
+% 0.0168 for TOEFL
+% 0.0155 for Letter of Recommendation
+% 0.0120 for Research Experience
+% 0.0067 for University Rating
+% 0.0015 for Statement of Purpose
+
+% Cost =  0.0017704
 
 % Preciction by all Features
 xtest = [1,300,100,1,1,1,6,0]
