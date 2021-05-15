@@ -47,7 +47,7 @@ print ("XY_norm.jpg")
 
 
 
-% fminunc Features one by one :
+% fminunc Features one by one : (WHICH IS WRONG !!!)
 
 initial_theta = zeros(2, 1);
 options = optimset('GradObj', 'on', 'MaxIter', 400);
@@ -79,7 +79,7 @@ Predict(resultTheta , mu , sigma , 2 , 80);
 
 
 
-% fminunc with all Features :
+% fminunc with all Features : (WHICH IS RIGHT !!!)
 
 % normalize all Features
 X_norm = (X-mu)./sigma;
